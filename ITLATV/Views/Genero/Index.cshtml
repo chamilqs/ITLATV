@@ -1,0 +1,45 @@
+﻿@using ITLATV.Core.Application.ViewModels.Generos;
+@model List<GeneroViewModel>
+@{
+    ViewData["Title"] = "Generos";
+}
+
+<div class="container-fluid">
+
+    <div class="row mb-3">
+        <div class="col-3 offset-9">
+            <a asp-controller="Genero" asp-action="Create" class="btn btn-outline-success fw-bold rounded-pill btn-lg">Crear nuevo genero</a>
+        </div>
+    </div>
+
+    <div class="row">
+
+        @if (Model == null || Model.Count == 0)
+        {
+            <br>
+            <h2>No hay géneros en el sistema.</h2>
+        }
+        else
+        {
+            @foreach (GeneroViewModel item in Model)
+            {
+                <div class="col-3">
+                    <div class="card shadow-sm">                       
+
+                        <div class="card-body">
+                            <h4 class="card-title">@item.Nombre</h4>
+                            <p class="card-text">Este género es utilizado por un total de @item.CantidadDeSeries series en el sistema.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a asp-controller="Genero" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning fw-bold">Editar</a>
+                                    <a asp-controller="Genero" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger fw-bold">Borrar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+</div>

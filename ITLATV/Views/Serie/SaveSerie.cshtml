@@ -1,0 +1,88 @@
+﻿@using ITLATV.Core.Application.ViewModels.Series;
+@model SaveSerieViewModel
+@{
+    bool editMode = Model.Id == 0 ? false : true;
+    ViewData["Title"] = "Guardar serie";
+}
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card">
+                <div class="card-header bg-dark text-light">
+                    <h4>@(editMode ? $"Editando la serie: {Model.Nombre}" : "Creando una nueva serie")</h4>
+                </div>
+                <div class="card-body">
+
+                    @if (Model.Productoras == null || Model.Productoras.Count == 0)
+                    {
+                        <h4>No hay productoras creadas</h4>
+                        <a asp-controller="Serie" asp-action="Index" class="btn btn-warning">Volver atras</a>
+                    }
+                    else
+                    {
+                        <form method="post" asp-controller="Serie" asp-action="@(editMode ? "Edit":"Create")">
+
+                            <div class="mb-3">
+                                <label asp-for="Nombre" class="form-label">Nombre: </label>
+                                <input type="text" asp-for="Nombre" class="form-control" />
+                                <span asp-validation-for="Nombre" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="EnlaceCaratula" class="form-label">Imagen de caratula: </label>
+                                <textarea asp-for="EnlaceCaratula" class="form-control"></textarea>
+                                <span asp-validation-for="EnlaceCaratula" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="EnlaceVideo" class="form-label">Enlace de la serie: </label>
+                                <input type="text" asp-for="EnlaceVideo" class="form-control" />
+                                <span asp-validation-for="EnlaceVideo" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="GeneroPrimarioId" class="form-label">Genero primario: </label>
+                                <select asp-for="GeneroPrimarioId" asp-items="@(new SelectList(Model.Generos,"Id","Nombre"))" class="form-select">
+                                    <option value="0">Seleccione una opcion</option>
+
+                                </select>
+                                <span asp-validation-for="GeneroPrimarioId" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="GeneroSecundarioId" class="form-label">Genero Secundario: </label>
+                                <select asp-for="GeneroSecundarioId" asp-items="@(new SelectList(Model.Generos,"Id","Nombre"))" class="form-select">
+                                    <option value="0">Seleccione una opcion</option>
+
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="ProductoraId" class="form-label">Productora: </label>
+                                <select asp-for="ProductoraId" asp-items="@(new SelectList(Model.Productoras,"Id","Nombre"))" class="form-select">
+                                    <option value="0">Seleccione una opcion</option>
+
+                                </select>
+                                <span asp-validation-for="ProductoraId" class="text-danger"></span>
+                            </div>
+
+                            <input type="hidden" asp-for="Id" />
+
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <a asp-controller="Serie" asp-action="Index" class="btn btn-warning">Volver atras</a>
+
+                        </form>
+                    }
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+

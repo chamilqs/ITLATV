@@ -1,0 +1,30 @@
+﻿@using ITLATV.Core.Application.ViewModels.Productoras;
+@model SaveProductoraViewModel
+@{
+    ViewData["Title"] = "Eliminar productora";
+}
+
+<div class="row">
+
+    <div class="col-6 offset-3">
+        <div class="card">
+            <div class="card-header bg-danger text-light">
+                <h4>¿Está seguro que desea eliminar la productora @Model.Nombre?</h4>
+            </div>
+            <div class="card-body">
+
+                <form method="post" asp-controller="Productora" asp-action="DeletePost">
+
+                    <input type="hidden" asp-for="Id" />
+
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <a asp-controller="Productora" asp-action="Index" class="btn btn-warning">Cancelar</a>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,45 @@
+﻿@using ITLATV.Core.Application.ViewModels.Productoras;
+@model List<ProductoraViewModel>
+@{
+    ViewData["Title"] = "Productoras";
+}
+
+<div class="container-fluid">
+
+    <div class="row mb-3">
+        <div class="col-3 offset-9">
+            <a asp-controller="Productora" asp-action="Create" class="btn btn-outline-success fw-bold rounded-pill btn-lg">Crear nueva productora</a>
+        </div>
+    </div>
+
+    <div class="row">
+
+        @if (Model == null || Model.Count == 0)
+        {
+            <br>
+            <h2>No hay productoras.</h2>
+        }
+        else
+        {
+            @foreach (ProductoraViewModel item in Model)
+            {
+                <div class="col-4">
+                    <div class="card shadow-sm">
+
+                        <div class="card-body">
+                            <h4 class="card-title">@item.Nombre</h4>
+                            <p class="card-text">La productora <strong>@item.Nombre</strong> ha producido un total de @item.CantidadDeSeries de las series registradas en el sistema.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a asp-controller="Productora" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning fw-bold">Editar</a>
+                                    <a asp-controller="Productora" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger fw-bold">Borrar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+</div>
